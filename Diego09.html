@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+  <link href="https://fonts.googleapis.com/css?family=Poppins:400,500,700&display=swap" rel="stylesheet">  <title>Harry Potter & Rick and Morty API</title>
+  <style>
+    body {
+      background: #181a20;
+      min-height: 100vh;
+      font-family: 'Poppins', Arial, Helvetica, sans-serif;
+    }
+    .navbar-custom {
+      background: #222;
+      border: none;
+      border-radius: 0;
+      box-shadow: 0 2px 8px rgba(60,60,60,0.08);
+    }
+    .navbar-brand {
+      color: #fff !important;
+      font-weight: 600;
+      font-size: 1.3em;
+      letter-spacing: 1px;
+      font-family: 'Poppins', Arial, Helvetica, sans-serif;
+    }
+    .navbar-nav > li > a {
+      color: #e0e0e0 !important;
+      font-weight: 400;
+      font-size: 1em;
+      padding: 12px 18px;
+      transition: background 0.2s, color 0.2s;
+      border-radius: 6px;
+    }
+    .navbar-nav > li > a:hover, .navbar-nav > .open > a {
+      background: #333 !important;
+      color: #fff !important;
+    }
+    .dropdown-menu {
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 4px 16px rgba(60,60,60,0.10);
+      border: none;
+      min-width: 180px;
+      padding: 8px 0;
+    }
+    .dropdown-menu > li > a {
+      color: #333 !important;
+      font-weight: 400;
+      font-size: 1em;
+      padding: 8px 20px;
+      border-radius: 4px;
+      transition: background 0.2s, color 0.2s;
+    }
+    .dropdown-menu > li > a:hover {
+      background: #f0f0f0 !important;
+      color: #222 !important;
+    }
+    .navbar-header, .navbar-brand {
+      padding-left: 10px;
+    }
+    .container {
+      margin-top: 0;
+    }    :root{
+        /* Harry Potter Colors */
+        --hp-primario: #722f37;
+        --hp-secundario: #ffd700;
+        --hp-terceario: #8b0000;
+        --hp-cuarto: #2c2c2c;
+        --hp-quinto: #f4f4f4;
+        
+        /* Rick & Morty Colors */
+        --rm-primario: #00b4d8;
+        --rm-secundario: #90e0ef;
+        --rm-terceario: #0077b6;
+        --rm-cuarto: #03045e;
+        --rm-quinto: #caf0f8;
+     }
+     * {
+        box-sizing: border-box;
+     }
+     .api-section {
+        margin: 40px 0;
+        padding: 30px;
+        border-radius: 15px;
+        box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+     }
+     .hp-section {
+        background: linear-gradient(135deg, var(--hp-primario), var(--hp-terceario));
+     }
+     .rm-section {
+        background: linear-gradient(135deg, var(--rm-primario), var(--rm-terceario));
+     }
+     .api-title {
+        text-align: center;
+        color: #fff;
+        font-size: 2.5em;
+        margin-bottom: 30px;
+        font-weight: bold;
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+     }
+     .hp-title {
+        color: var(--hp-secundario);
+     }
+     .rm-title {
+        color: var(--rm-secundario);
+     }
+     header{
+        padding: 20px 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        margin-bottom: 30px;
+     }
+     .hp-header {
+        background-color: var(--hp-secundario);
+     }
+     .rm-header {
+        background-color: var(--rm-secundario);
+     }
+     #form, #form-hp, #form-rm {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+     }
+     .search{
+        border: 2px solid;
+        border-radius: 25px;
+        font-family: inherit;
+        font-size: 16px;
+        padding: 10px 20px;
+        width: 250px;
+        transition: background 0.3s, border 0.3s;
+     }
+     .hp-search {
+        background-color: var(--hp-quinto);
+        border-color: var(--hp-terceario);
+        color: var(--hp-terceario);
+     }
+     .hp-search::placeholder{
+        color: var(--hp-terceario);  
+        opacity: 0.7;
+     }
+     .hp-search:focus{
+        outline: none;
+        background-color: var(--hp-secundario);
+        border-color: var(--hp-primario);
+     }
+     .rm-search {
+        background-color: var(--rm-quinto);
+        border-color: var(--rm-terceario);
+        color: var(--rm-terceario);
+     }
+     .rm-search::placeholder{
+        color: var(--rm-terceario);  
+        opacity: 0.7;
+     }
+     .rm-search:focus{
+        outline: none;
+        background-color: var(--rm-secundario);
+        border-color: var(--rm-primario);
+     }
+     main{
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 30px;
+        padding: 20px;
+        min-height: 80vh;
+     }
+     .personaje{
+        width: 320px;
+        border-radius: 15px;
+        box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+        margin: 10px;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        transition: transform 0.2s;
+     }
+     .hp-personaje {
+        background: var(--hp-secundario);
+     }
+     .rm-personaje {
+        background: var(--rm-secundario);
+     }
+     .personaje:hover {
+        transform: translateY(-8px) scale(1.03);
+        box-shadow: 0 16px 32px rgba(0,0,0,0.18);
+     }
+     .personaje img {
+        width: 100%;
+        height: 320px;
+        object-fit: cover;
+        background: #fff;
+     }
+     .hp-personaje img {
+        border-bottom: 2px solid var(--hp-terceario);
+     }
+     .rm-personaje img {
+        border-bottom: 2px solid var(--rm-terceario);
+     }
+     .personaje-info{
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 8px;
+        padding: 18px 10px 8px 10px;
+     }
+     .hp-info {
+        color: var(--hp-terceario);
+        background: var(--hp-quinto);
+        border-bottom: 1px solid var(--hp-primario);
+     }
+     .rm-info {
+        color: var(--rm-terceario);
+        background: var(--rm-quinto);
+        border-bottom: 1px solid var(--rm-primario);
+     }
+     .personaje-info h3{
+        margin: 0;
+        font-size: 1.3em;
+        letter-spacing: 2px;
+     }
+     .hp-info h3 {
+        color: var(--hp-terceario);
+     }
+     .rm-info h3 {
+        color: var(--rm-terceario);
+     }
+     .personaje-info span {
+        font-size: 1em;
+        font-weight: bold;
+     }
+     .hp-info span {
+        color: var(--hp-primario);
+     }
+     .rm-info span {
+        color: var(--rm-primario);
+     }
+     .description {
+        color: #fff;
+        background: transparent;
+        padding: 15px 18px 20px 18px;
+        font-size: 1em;
+        text-align: center;
+        min-height: 80px;
+     }
+     .description h3 {
+        margin: 0 0 8px 0;
+        font-size: 1.1em;
+     }
+     .hp-description h3 {
+        color: var(--hp-primario);
+     }
+     .rm-description h3 {
+        color: var(--rm-primario);
+     }
+     .description strong {
+        color: var(--color-terceario);
+     }
+     .hp-description strong {
+        color: var(--hp-terceario);
+     }
+     .rm-description strong {
+        color: var(--rm-terceario);
+     }
+  </style>
+</head>
+<body>
+<nav class="navbar navbar-custom">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="index.html">INICIO</a>
+    </div>
+    <ul class="nav navbar-nav">
+      <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">UNIDAD 1 <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <li><a href="Diego01.PHP">TABLA PERSONAJES</a></li>
+          <li><a href="Diego02.php">MOSTRAR DATOS</a></li>
+          <li><a href="Diego03.php">AGREGAR PERSONAJE</a></li>
+        </ul>
+      </li>
+      <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">UNIDAD 2 <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <li><a href="Diego04.php">MOSTRAR DATOS</a></li>
+          <li><a href="Diego05.php">AGREGAR ALUMNO</a></li>
+          <li><a href="Diego/Diego06.html">POKEDEX</a></li>
+        </ul>
+      </li>
+      <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">UNIDAD 3 <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <li><a href="Diego/Diego07.html">PELICULAS</a></li>
+          <li><a href="Diego/Diego08.html">DRAGON BALL</a></li>
+          <li><a href="Diego/Diego09.html">HARRY POTTER Y RICK AND MORTY</a></li>
+          <li><a href="Diego/Diego10.html">Practica Final</a></li>
+        </ul>
+      </li>
+    </ul>  </div>
+</nav>
+
+<!-- Sección Harry Potter -->
+<div class="api-section hp-section">
+    <h1 class="api-title hp-title">⚡ HARRY POTTER API ⚡</h1>
+    <header class="hp-header">
+        <form id="form-hp" autocomplete="off">
+            <input type="text" id="search-hp" class="search hp-search" placeholder="Buscar Personaje Harry Potter">
+        </form>
+    </header>
+    <main id="main-hp"></main>
+</div>
+
+<!-- Sección Rick and Morty -->
+<div class="api-section rm-section">
+    <h1 class="api-title rm-title">🛸 RICK AND MORTY API 🛸</h1>
+    <header class="rm-header">
+        <form id="form-rm" autocomplete="off">
+            <input type="text" id="search-rm" class="search rm-search" placeholder="Buscar Personaje Rick & Morty">
+        </form>
+    </header>
+    <main id="main-rm"></main>
+</div>
+
+<script>
+// PRIMER CÓDIGO - HARRY POTTER API (exactamente como Diego08.html)
+const API_HP = 'https://hp-api.onrender.com/api/characters';
+const mainHP = document.getElementById('main-hp');
+const formHP = document.getElementById('form-hp');
+const searchHP = document.getElementById('search-hp');
+
+let allHPCharacters = [];
+getHP(API_HP);
+
+async function getHP(url) {
+    try {
+        const res = await fetch(url);
+        if (!res.ok) throw new Error('Network response was not ok');
+        const data = await res.json();
+        allHPCharacters = data || [];
+        showHPCharacters(allHPCharacters);
+    } catch (error) {
+        console.error('Error fetching HP characters:', error);
+        mainHP.innerHTML = '<p style="color: white;">Error loading Harry Potter characters. Please try again later.</p>';
+    }
+}
+
+function showHPCharacters(characters) {
+    mainHP.innerHTML = '';
+    characters.forEach(character => {
+        const { name, image, house, actor, alive, species } = character;
+        
+        // Operador ternario como en la imagen
+        let status = alive === false ? 'Deceased' : (alive === true ? 'Alive' : 'Unknown');
+        
+        const characterEL = document.createElement('div');
+        characterEL.classList.add('personaje', 'hp-personaje');
+        characterEL.innerHTML = `
+            <img src="${image || 'https://via.placeholder.com/320x320?text=No+Image'}" alt="${name}">
+            <div class="personaje-info hp-info">
+                <h3>${name || 'Desconocido'}</h3>
+                <span>${house || 'Sin casa'}</span>
+            </div>
+            <div class="description hp-description">
+                <h3>Información</h3>
+                <p><strong>Actor:</strong> ${actor || 'Desconocido'}</p>
+                <p><strong>Estado:</strong> ${status}</p>
+                <p><strong>Especie:</strong> ${species || 'Humano'}</p>
+            </div>`;
+        mainHP.appendChild(characterEL);
+    });
+}
+
+formHP.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const searchTerm = searchHP.value.toLowerCase().trim();
+    if (searchTerm) {
+        const filtered = allHPCharacters.filter(c => c.name.toLowerCase().includes(searchTerm));
+        showHPCharacters(filtered);
+        searchHP.value = '';
+    } else {
+        showHPCharacters(allHPCharacters);
+    }
+});
+
+// SEGUNDO CÓDIGO - RICK AND MORTY API (exactamente como Diego08.html)
+const API_RM = 'https://rickandmortyapi.com/api/character';
+const mainRM = document.getElementById('main-rm');
+const formRM = document.getElementById('form-rm');
+const searchRM = document.getElementById('search-rm');
+
+let allRMCharacters = [];
+getRM(API_RM);
+
+async function getRM(url) {
+    try {
+        const res = await fetch(url);
+        if (!res.ok) throw new Error('Network response was not ok');
+        const data = await res.json();
+        allRMCharacters = data.results || [];
+        showRMCharacters(allRMCharacters);
+    } catch (error) {
+        console.error('Error fetching RM characters:', error);
+        mainRM.innerHTML = '<p style="color: white;">Error loading Rick and Morty characters. Please try again later.</p>';
+    }
+}
+
+function showRMCharacters(characters) {
+    mainRM.innerHTML = '';
+    characters.forEach(character => {
+        const { id, name, image, species, status, gender, origin } = character;
+        
+        // Operador ternario como en la imagen
+        let statusDisplay = status || (character.alive === false ? 'Deceased' : 'Alive');
+        
+        const characterEL = document.createElement('div');
+        characterEL.classList.add('personaje', 'rm-personaje');
+        characterEL.innerHTML = `
+            <img src="${image || 'https://via.placeholder.com/320x320?text=No+Image'}" alt="${name}">
+            <div class="personaje-info rm-info">
+                <h1>${id || ''}</h1>
+                <h3>${name || 'Desconocido'}</h3>
+                <span>${species || 'Desconocido'}</span>
+            </div>
+            <div class="description rm-description">
+                <h3>Información</h3>
+                <p><strong>Estado:</strong> ${statusDisplay}</p>
+                <p><strong>Género:</strong> ${gender || 'Desconocido'}</p>
+                <p><strong>Origen:</strong> ${origin?.name || 'Desconocido'}</p>
+            </div>`;
+        mainRM.appendChild(characterEL);
+    });
+}
+
+formRM.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const searchTerm = searchRM.value.toLowerCase().trim();
+    if (searchTerm) {
+        const filtered = allRMCharacters.filter(c => c.name.toLowerCase().includes(searchTerm));
+        showRMCharacters(filtered);
+        searchRM.value = '';
+    } else {
+        showRMCharacters(allRMCharacters);
+    }
+});
+</script>
+</body>
+</html>
