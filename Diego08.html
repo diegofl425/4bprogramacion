@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+  <link href="https://fonts.googleapis.com/css?family=Poppins:400,500,700&display=swap" rel="stylesheet">
+  <title>Dragon Ball Z</title>
+  <style>
+    body {
+      background: #181a20;
+      min-height: 100vh;
+      font-family: 'Poppins', Arial, Helvetica, sans-serif;
+    }
+    .navbar-custom {
+      background: #222;
+      border: none;
+      border-radius: 0;
+      box-shadow: 0 2px 8px rgba(60,60,60,0.08);
+    }
+    .navbar-brand {
+      color: #fff !important;
+      font-weight: 600;
+      font-size: 1.3em;
+      letter-spacing: 1px;
+      font-family: 'Poppins', Arial, Helvetica, sans-serif;
+    }
+    .navbar-nav > li > a {
+      color: #e0e0e0 !important;
+      font-weight: 400;
+      font-size: 1em;
+      padding: 12px 18px;
+      transition: background 0.2s, color 0.2s;
+      border-radius: 6px;
+    }
+    .navbar-nav > li > a:hover, .navbar-nav > .open > a {
+      background: #333 !important;
+      color: #fff !important;
+    }
+    .dropdown-menu {
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 4px 16px rgba(60,60,60,0.10);
+      border: none;
+      min-width: 180px;
+      padding: 8px 0;
+    }
+    .dropdown-menu > li > a {
+      color: #333 !important;
+      font-weight: 400;
+      font-size: 1em;
+      padding: 8px 20px;
+      border-radius: 4px;
+      transition: background 0.2s, color 0.2s;
+    }
+    .dropdown-menu > li > a:hover {
+      background: #f0f0f0 !important;
+      color: #222 !important;
+    }
+    .navbar-header, .navbar-brand {
+      padding-left: 10px;
+    }
+    .container {
+      margin-top: 0;
+    }
+    :root{
+        --color-primario: #F8E16C;
+        --color-secundario:#E4572E;
+        --color-terceario:#29335C;
+        --color-cuarto:#669BBC;
+        --color-quinto:#7B9E87;
+     }
+     * {
+        box-sizing: border-box;
+     }
+     body{
+        background-color: var(--color-primario);
+        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        margin: 0;
+     }
+     header{
+        padding: 20px 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: var(--color-secundario);
+        box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        margin-bottom: 30px;
+     }
+     #form {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+     }
+     .search{
+        background-color: var(--color-primario);
+        border: 2px solid var(--color-terceario);
+        border-radius: 25px;
+        font-family: inherit;
+        font-size: 16px;
+        padding: 10px 20px;
+        color: var(--color-terceario);
+        width: 250px;
+        transition: background 0.3s, border 0.3s;
+     }
+     .search::placeholder{
+        color: var(--color-terceario);  
+        opacity: 0.7;
+     }
+     .search:focus{
+        outline: none;
+        background-color: var(--color-quinto);
+        border-color: var(--color-cuarto);
+     }
+     main{
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 30px;
+        padding: 20px;
+        min-height: 80vh;
+     }
+     .personaje{
+        width: 320px;
+        background: var(--color-secundario);
+        border-radius: 15px;
+        box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+        margin: 10px;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        transition: transform 0.2s;
+     }
+     .personaje:hover {
+        transform: translateY(-8px) scale(1.03);
+        box-shadow: 0 16px 32px rgba(0,0,0,0.18);
+     }
+     .personaje img {
+        width: 100%;
+        height: 320px;
+        object-fit: contain;
+        background: #fff;
+        border-bottom: 2px solid var(--color-terceario);
+     }
+     .personaje-info{
+        color: var(--color-terceario);
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 8px;
+        padding: 18px 10px 8px 10px;
+        background: var(--color-primario);
+        border-bottom: 1px solid var(--color-cuarto);
+     }
+     .personaje-info h3{
+        color: var(--color-terceario);
+        margin: 0;
+        font-size: 1.3em;
+        letter-spacing: 2px;
+     }
+     .personaje-info span {
+        font-size: 1em;
+        color: var(--color-cuarto);
+        font-weight: bold;
+     }
+     .description {
+        color: #fff;
+        background: transparent;
+        padding: 15px 18px 20px 18px;
+        font-size: 1em;
+        text-align: center;
+        min-height: 80px;
+     }
+     .description h3 {
+        color: var(--color-cuarto);
+        margin: 0 0 8px 0;
+        font-size: 1.1em;
+     }
+     .description strong {
+        color: var(--color-terceario);
+     }
+    </style>
+</head>
+<body>
+<nav class="navbar navbar-custom">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="index.html">INICIO</a>
+    </div>
+    <ul class="nav navbar-nav">
+      <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">UNIDAD 1 <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <li><a href="Diego01.PHP">TABLA PERSONAJES</a></li>
+          <li><a href="Diego02.php">MOSTRAR DATOS</a></li>
+          <li><a href="Diego03.php">AGREGAR PERSONAJE</a></li>
+        </ul>
+      </li>
+      <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">UNIDAD 2 <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <li><a href="Diego04.php">MOSTRAR DATOS</a></li>
+          <li><a href="Diego05.php">AGREGAR ALUMNO</a></li>
+          <li><a href="Diego/Diego06.html">POKEDEX</a></li>
+        </ul>
+      </li>
+      <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">UNIDAD 3 <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <li><a href="Diego/Diego07.html">PELICULAS</a></li>
+          <li><a href="Diego/Diego08.html">DRAGON BALL</a></li>
+          <li><a href="Diego7Diego09.html">HARRY POTTER Y RICK AND MORTY</a></li>
+          <li><a href="Diego/Diego10.html">Practica Final</a></li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+</nav>
+    <header>
+        <form id="form" autocomplete="off">
+            <img src="logo.svg" alt="logo" style="width: 80px;">
+            <input type="text" id="search" class="search" placeholder="Buscar Personaje">
+        </form>
+    </header>
+    <main id="main"></main>
+<script>
+    const API_URL = 'https://dragonball-api.com/api/characters';
+    const main = document.getElementById('main');
+    const form = document.getElementById('form');
+    const search = document.getElementById('search');
+
+    let allCharacters = [];
+    getDBZ(API_URL);
+
+    async function getDBZ(url) {
+        try {
+            const res = await fetch(url);
+            if (!res.ok) throw new Error('Network response was not ok');
+            const data = await res.json();
+            allCharacters = data.items || [];
+            showCharacters(allCharacters);
+        } catch (error) {
+            console.error('Error fetching characters:', error);
+            main.innerHTML = '<p style="color: white;">Error loading characters. Please try again later.</p>';
+        }
+    }
+
+    function showCharacters(characters) {
+        main.innerHTML = '';
+        characters.forEach(character => {
+            const { id, name, image, race, description, ki, maxKi } = character;
+            const characterEL = document.createElement('div');
+            characterEL.classList.add('personaje');
+            characterEL.innerHTML = `
+                <img src="${image}" alt="${name}">
+                <div class="personaje-info">
+                    <h1>${id || ''}</h1>  <h3>${name}</h3>
+                    <span>${race || ''}</span>
+                </div>
+                <div class="description">
+                    <h3>Descripción</h3>
+                    <p>${description || "Sin descripción disponible"}</p>
+                    <p><strong>Ki:</strong> ${ki || ''}</p>
+                    <p><strong>Max Ki:</strong> ${maxKi || ''}</p>
+                </div>`;
+            main.appendChild(characterEL);
+        });
+    }
+
+    form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const searchTerm = search.value.toLowerCase().trim();
+        if (searchTerm) {
+            const filtered = allCharacters.filter(c => c.name.toLowerCase().includes(searchTerm));
+            showCharacters(filtered);
+            search.value = '';
+        } else {
+            showCharacters(allCharacters);
+        }
+    });
+</script>
+</body>
+</html>
